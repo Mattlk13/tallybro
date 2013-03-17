@@ -1,0 +1,13 @@
+{
+  "name": "tallybro-app",
+  "version": "0.0.0",
+  "dependencies": {
+    "sass-bootstrap": "~2.3.0",
+    "modernizr": "~2.6.2",
+    "jquery": "~1.9.1",
+    "lodash": "~1.0.1",
+    "backbone": "~0.9.10",
+    "backbone.localStorage": ">0.0"
+  },
+  "devDependencies": {}
+}
