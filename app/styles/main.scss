@@ -17,8 +17,8 @@ $green: #4ABA00;
     position: relative;
     background: #000;
     img {
+      background: white;
       opacity: 0.8;
-      position: absolute;
     }
     &.placeholder {
       margin: 5px;
@@ -29,13 +29,18 @@ $green: #4ABA00;
       background: none;
       line-height: 12;
     }
+    &.hover {
+      border-color: $green;
+    }
   }
   .name {
     text-align: center;
     font-size: 20px;
-    padding: 10px 0 0;
+    padding: 10px 0;
     background: white;
-
+    input {
+      margin: 0;
+    }
   }
   .points {
     @include clearfix;
@@ -103,6 +108,27 @@ $green: #4ABA00;
           color: $green;
         }
       }
+    }
+  }
+  .remove {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    right: 3px;
+    top: -3px;
+    text-decoration: none;
+    padding: 5px;
+    font-weight: bold;
+    color: white;
+    font-size: 24px;
+    text-shadow: 0 1px 1px #000;
+    &:hover {
+      color: $red;
+    }
+  }
+  &:hover {
+    .remove {
+      display: block;
     }
   }
 }

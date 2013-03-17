@@ -3,7 +3,8 @@ App.Views.PlayerView = Backbone.View.extend({
   template: _.template($('#tmpl-player').html()),
 
   events: {
-    'click .controls a': 'updatePoints'
+    'click .controls a': 'updatePoints',
+    'click .remove': 'clear'
   },
 
   initialize: function() {
@@ -16,6 +17,14 @@ App.Views.PlayerView = Backbone.View.extend({
     return this;
   },
 
+  clear: function(e) {
+    e.preventDefault();
+    var confirmation = confirm('Are you sure you want to remove ' + this.model.get('name'));
+    if (confirmation) {
+      this.model.destroy();
+    }
+  },
+
   animateProgressBar: function() {
     var $progress = this.$el.find('.indicator .progress');
 
@@ -26,7 +35,6 @@ App.Views.PlayerView = Backbone.View.extend({
         width: 0
       });
     });
-
   },
 
   updateTotal: function(change) {
