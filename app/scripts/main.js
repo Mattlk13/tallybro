@@ -4,3 +4,7 @@ $(function() {
   App.tallyBro = new App.Views.AppView();
 
 });
+
+window.addEventListener('load', function() {
+  new FastClick(document.body);
+}, false);
