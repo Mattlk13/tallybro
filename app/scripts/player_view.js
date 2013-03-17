@@ -38,14 +38,8 @@ App.Views.PlayerView = Backbone.View.extend({
   },
 
   updateTotal: function(change) {
-    var current = +this.$el.find('.current').html(),
-        total = current + (+change);
-
-    this.$el.find('.current').html(total);
-    this.$el.find('.change-by').empty();
-
     this.model.save({
-      points: total
+      points: this.model.get('points') + (+change)
     });
   },
 
