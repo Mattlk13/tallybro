@@ -14196,9 +14196,3 @@ jQuery.fn.serializeObject = function() {
 
   return o;
 };
-
-window.App = {
-  Models: {},
-  Collections: {},
-  Views: {}
-};
