@@ -18,7 +18,7 @@ App.Collections.PlayerCollection = Backbone.Collection.extend({
 });
 
 App.Views.PlayerView = Backbone.View.extend({
-  className: "span3 player",
+  className: 'span3 player',
   template: _.template($('#tmpl-player').html()),
 
   events: {
@@ -59,27 +59,29 @@ App.Views.PlayerView = Backbone.View.extend({
 
     if (e.type === 'keyup') {
       switch(e.keyCode) {
-        case 27: // escape
-          cancel();
-          return;
+      case 27: // escape
+        cancel();
+        return;
 
-        case 13: // enter
-          break;
+      case 13: // enter
+        break;
 
-        default:
-          return;
+      default:
+        return;
       }
     }
 
-    this.model.save({
-      name: $name.find('input').val()
-    });
+    var saved = this.model.save({ name: $name.find('input').val() });
+    if (!saved) {
+      cancel();
+    }
   },
 
   clear: function(e) {
     e.preventDefault();
-    var confirmation = confirm('Are you sure you want to remove ' + this.model.get('name'));
-    if (confirmation) {
+    var ask = 'Are you sure you want to remove ' + this.model.get('name') + '?';
+
+    if (confirm(ask)) {
       this.model.destroy();
     }
   },
@@ -146,6 +148,26 @@ App.Views.NewPlayerView = Backbone.View.extend({
     'submit': 'createPlayer'
   },
 
+  initialize: function() {
+    this.fileUploadInput();
+  },
+
+  fileUploadInput: function() {
+    var that = this;
+
+    if (!Modernizr.draganddrop || Modernizr.touch) {
+      var $file_upload_input = $('<input>', {
+        type: 'file',
+        name: 'headshot'
+      });
+      this.$el.find('.headshot').html($file_upload_input);
+
+      this.$el.on('change', $file_upload_input, function(e) {
+        that.readFiles(e.target.files);
+      });
+    }
+  },
+
   dragOver: function(e) {
     $(e.target).addClass('hover');
     return false;
@@ -175,9 +197,9 @@ App.Views.NewPlayerView = Backbone.View.extend({
     var reader = new FileReader(),
         that = this;
 
-    reader.onload = function (event) {
+    reader.onload = function (e) {
       var image = new Image();
-      image.src = event.target.result;
+      image.src = e.target.result;
 
       that.$el.find('.headshot').html(image);
       that.$el.find('input[name=headshot]').val(image.src);
@@ -192,6 +214,8 @@ App.Views.NewPlayerView = Backbone.View.extend({
 
     e.target.reset();
     this.$el.find('.headshot').html('Drop photo');
+
+    this.fileUploadInput();
   }
 });
 App.Views.AppView = Backbone.View.extend({
