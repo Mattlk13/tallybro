@@ -8,6 +8,26 @@ App.Views.NewPlayerView = Backbone.View.extend({
     'submit': 'createPlayer'
   },
 
+  initialize: function() {
+    this.fileUploadInput();
+  },
+
+  fileUploadInput: function() {
+    var that = this;
+
+    if (!Modernizr.draganddrop || Modernizr.touch) {
+      var $file_upload_input = $('<input>', {
+        type: 'file',
+        name: 'headshot'
+      });
+      this.$el.find('.headshot').html($file_upload_input);
+
+      this.$el.on('change', $file_upload_input, function(e) {
+        that.readFiles(e.target.files);
+      });
+    }
+  },
+
   dragOver: function(e) {
     $(e.target).addClass('hover');
     return false;
@@ -37,9 +57,9 @@ App.Views.NewPlayerView = Backbone.View.extend({
     var reader = new FileReader(),
         that = this;
 
-    reader.onload = function (event) {
+    reader.onload = function (e) {
       var image = new Image();
-      image.src = event.target.result;
+      image.src = e.target.result;
 
       that.$el.find('.headshot').html(image);
       that.$el.find('input[name=headshot]').val(image.src);
@@ -54,5 +74,7 @@ App.Views.NewPlayerView = Backbone.View.extend({
 
     e.target.reset();
     this.$el.find('.headshot').html('Drop photo');
+
+    this.fileUploadInput();
   }
 });

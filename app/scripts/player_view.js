@@ -1,5 +1,5 @@
 App.Views.PlayerView = Backbone.View.extend({
-  className: "span3 player",
+  className: 'span3 player',
   template: _.template($('#tmpl-player').html()),
 
   events: {
