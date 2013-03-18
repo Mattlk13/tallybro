@@ -40,27 +40,29 @@ App.Views.PlayerView = Backbone.View.extend({
 
     if (e.type === 'keyup') {
       switch(e.keyCode) {
-        case 27: // escape
-          cancel();
-          return;
+      case 27: // escape
+        cancel();
+        return;
 
-        case 13: // enter
-          break;
+      case 13: // enter
+        break;
 
-        default:
-          return;
+      default:
+        return;
       }
     }
 
-    this.model.save({
-      name: $name.find('input').val()
-    });
+    var saved = this.model.save({ name: $name.find('input').val() });
+    if (!saved) {
+      cancel();
+    }
   },
 
   clear: function(e) {
     e.preventDefault();
-    var confirmation = confirm('Are you sure you want to remove ' + this.model.get('name'));
-    if (confirmation) {
+    var ask = 'Are you sure you want to remove ' + this.model.get('name') + '?';
+
+    if (confirm(ask)) {
       this.model.destroy();
     }
   },
