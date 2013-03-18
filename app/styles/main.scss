@@ -65,7 +65,6 @@ $green: #4ABA00;
       font-size: 30px;
       position: relative;
       top: -50px;
-      // font-weight: normal;
       margin-left: -25px;
       &.add {
         color: $green;
@@ -95,6 +94,7 @@ $green: #4ABA00;
       width: 50%;
       text-align: center;
       a {
+        @include transition(background 0.2s ease);
         display: block;
         padding: 15px;
         background: #eee;
@@ -102,7 +102,7 @@ $green: #4ABA00;
         font-size: 26px;
         color: #333;
         &:hover {
-          background: #ddd;
+          background: #e6e6e6;
           text-decoration: none;
         }
       }
