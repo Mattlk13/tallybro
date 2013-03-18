@@ -53,8 +53,10 @@
       </div>
 
       <div class="headshot">
-        <div class="bg" style="background-image: url(<%= headshot || 'images/close-enough.png' %>)">
-        </div>
+        <% if (headshot) { %>
+          <div class="bg" style="background-image: url(<%= headshot %>)">
+          </div>
+        <% } %>
       </div>
 
       <div class="indicator">

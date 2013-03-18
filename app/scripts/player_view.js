@@ -31,14 +31,29 @@ App.Views.PlayerView = Backbone.View.extend({
   },
 
   updatePlayer: function(e) {
+    var $name = this.$el.find('.name'),
+        that = this;
+
+    var cancel = function() {
+      $name.html(that.model.get('name'));
+    };
+
     if (e.type === 'keyup') {
-      if (e.keyCode !== 13) {
-        return;
+      switch(e.keyCode) {
+        case 27: // escape
+          cancel();
+          return;
+
+        case 13: // enter
+          break;
+
+        default:
+          return;
       }
     }
 
     this.model.save({
-      name: this.$el.find('.name input').val()
+      name: $name.find('input').val()
     });
   },
 
