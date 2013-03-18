@@ -4,7 +4,10 @@ App.Views.PlayerView = Backbone.View.extend({
 
   events: {
     'click .controls a': 'updatePoints',
-    'click .remove': 'clear'
+    'click .remove': 'clear',
+    'dblclick .name': 'editName',
+    'blur .name input': 'updatePlayer',
+    'keyup .name input': 'updatePlayer'
   },
 
   initialize: function() {
@@ -15,6 +18,28 @@ App.Views.PlayerView = Backbone.View.extend({
   render: function() {
     this.$el.html(this.template(this.model.toJSON()));
     return this;
+  },
+
+  editName: function() {
+    var $input = $('<input>', {
+      type: 'text',
+      name: 'name',
+      value: this.model.get('name')
+    });
+    this.$el.find('.name').html($input);
+    $input.focus();
+  },
+
+  updatePlayer: function(e) {
+    if (e.type === 'keyup') {
+      if (e.keyCode !== 13) {
+        return;
+      }
+    }
+
+    this.model.save({
+      name: this.$el.find('.name input').val()
+    });
   },
 
   clear: function(e) {
