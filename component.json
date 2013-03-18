@@ -7,7 +7,9 @@
     "jquery": "~1.9.1",
     "lodash": "~1.0.1",
     "backbone": "~0.9.10",
-    "backbone.localStorage": ">0.0"
+    "backbone.localStorage": ">0.0",
+    "fastclick": ">0.0",
+    "jquery-serializeObject": "git://github.com/gillesruppert/jquery-serializeObject"
   },
   "devDependencies": {}
 }
