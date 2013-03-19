@@ -52,10 +52,8 @@ App.Views.PlayerView = Backbone.View.extend({
       }
     }
 
-    var saved = this.model.save({ name: $name.find('input').val() });
-    if (!saved) {
-      cancel();
-    }
+    this.model.save({ name: $name.find('input').val() });
+    cancel();
   },
 
   clear: function(e) {
