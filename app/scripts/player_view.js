@@ -5,7 +5,7 @@ App.Views.PlayerView = Backbone.View.extend({
   events: {
     'click .controls a': 'updatePoints',
     'click .remove': 'clear',
-    'dblclick .name': 'editName',
+    'click .name': 'editName',
     'blur .name input': 'updatePlayer',
     'keyup .name input': 'updatePlayer'
   },

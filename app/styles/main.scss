@@ -46,6 +46,9 @@ $green: #4ABA00;
     font-size: 20px;
     padding: 10px 0;
     background: white;
+    &:hover {
+      border-bottom: 1px dotted #aaa;
+    }
     input {
       margin: 0;
     }
