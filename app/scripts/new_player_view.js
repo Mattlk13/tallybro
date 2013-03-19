@@ -5,6 +5,7 @@ App.Views.NewPlayerView = Backbone.View.extend({
     'dragover .headshot': 'dragOver',
     'dragleave .headshot': 'dragEnd',
     'drop .headshot': 'drop',
+    'click .headshot': 'triggerFileSelect',
     'submit': 'createPlayer'
   },
 
@@ -12,20 +13,17 @@ App.Views.NewPlayerView = Backbone.View.extend({
     this.fileUploadInput();
   },
 
+  triggerFileSelect: function(e) {
+    e.preventDefault();
+    this.$el.find('input[type=file]').click();
+  },
+
   fileUploadInput: function() {
     var that = this;
 
-    if (!Modernizr.draganddrop || Modernizr.touch) {
-      var $file_upload_input = $('<input>', {
-        type: 'file',
-        name: 'headshot'
-      });
-      this.$el.find('.headshot').html($file_upload_input);
-
-      this.$el.on('change', $file_upload_input, function(e) {
-        that.readFiles(e.target.files);
-      });
-    }
+    this.$el.on('change', 'input[type=file]', function(e) {
+      that.readFiles(e.target.files);
+    });
   },
 
   dragOver: function(e) {
@@ -58,11 +56,13 @@ App.Views.NewPlayerView = Backbone.View.extend({
         that = this;
 
     reader.onload = function (e) {
-      var image = new Image();
-      image.src = e.target.result;
+      var $bg = $('<div>', {
+        'class': 'bg',
+        'style': 'background-image: url('+ e.target.result +')'
+      });
 
-      that.$el.find('.headshot').html(image);
-      that.$el.find('input[name=headshot]').val(image.src);
+      that.$el.find('.headshot').html($bg);
+      that.$el.find('input[name=headshot]').val(e.target.result);
     };
 
     reader.readAsDataURL(file);
@@ -73,7 +73,7 @@ App.Views.NewPlayerView = Backbone.View.extend({
     App.players.create($(e.target).serializeObject());
 
     e.target.reset();
-    this.$el.find('.headshot').html('Drop photo');
+    this.$el.find('.headshot').html('Add photo');
 
     this.fileUploadInput();
   }
